@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('partials/bootstrap') %>
+</head>
+<body>
+    <img src="<%= image.url %>">
+    <form action="/gallery/image/vote/<%=image.id%>/?userid=<%=user.id%>" method ="post">
+        <button type="submit" name="vote" value="true" class="btn btn-success">Like</button>
+        <button type="submit" name="vote" value="false" class="btn btn-warning">Disklike</button>
+    </form> 
+
+    <!-- <a class="btn btn-success" href="/gallery/image/vote/<%=image.id%>/?userid=<%=user.id%>" name="vote" value="true" role="button">Like</a>
+    <a class="btn btn-warning" href="/gallery/image/vote/<%=image.id%>/?userid=<%=user.id%>" name ="vote" value="false" role="button">Dislike</a> -->
+</body>
+</html>

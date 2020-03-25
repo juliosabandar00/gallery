@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('partials/bootstrap') %>
+</head>
+<body>
+    <form action="/gallery/image/add?userid=<%=user.id%>" method ="post">
+        <input name = "url" type="text" class="form-control" id="url" placeholder="insert image url">
+        <button type="submit" class="btn btn-primary">Add Image</button>
+    </form>
+    <% images.forEach(image => { %>
+        <a href="/gallery/image/<%=image.id%>/?userid=<%=user.id%>">
+            <img src="<%= image.url%>">
+        </a>
+    <% }) %>
+
+    <!-- test image -->
+    <!-- <img src="https://ruinmyweek.com/wp-content/uploads/2020/01/IMG_0780.jpg"> -->
+</body>
+</html>
