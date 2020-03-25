@@ -16,7 +16,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     score: DataTypes.INTEGER
-  }, { sequelize })
+  }, 
+  { 
+    sequelize,
+    hooks: {
+      beforeCreate: (image, option) => {
+        image.score = 0;
+      }
+    }
+  })
   Image.associate = function(models) {
     Image.belongsToMany(models.User, {through : models.ImageUser})
   };
