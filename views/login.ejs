@@ -4,17 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <%- include('partials/bootstrap') %>
+    <%- include('partials/styling') %>
   </head>
   <body>
-    <h1>Log In</h1>
+    <h1 class="title">Photo Gallery</h1>
     <% if(error){ %>
-    <p><%= error %></p>
+    <h3 class="error"><%= error %></h3>
     <% } %>
-    <form action="/login" method="post">
-      <%- include('partials/userpass') %>
-      <button type="submit" class="btn btn-primary">Log In</button>
-    </form>
-    <p1><a href="/signUp">Don't have an account yet?</a></p1>
+    <div class="auth">
+      <div class="header">
+        <div class="login active">
+          <h1><a href="/login">Login</a></h1>
+        </div>
+        <div class="signup">
+          <h1><a href="/signup">Signup</a></h1>
+        </div>
+      </div>
+      <form action="/login" method="post">
+        <label for="username">Username</label><br />
+        <input type="text" name="username" placeholder="Username" /><br />
+        <label for="password">Password</label><br />
+        <input type="password" name="password" placeholder="Password" /><br />
+        <button>Login</button>
+      </form>
+    </div>
   </body>
 </html>
