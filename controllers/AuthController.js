@@ -56,7 +56,7 @@ class AuthController {
       password: hash(req.body.password)
     })
       .then(data => {
-        res.redirect('/signin')
+        res.redirect('/')
       })
       .catch(err => {
         res.send(err)
