@@ -8,25 +8,25 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     username: {
       type: DataTypes.STRING,
-      validate:{
+      validate: {
         notEmpty: true,
-        len: [4,20]
+        len: [4, 200]
       },
-      unique:{
-        args:true,
+      unique: {
+        args: true,
         msg: 'Username is already taken'
       }
     },
     password: {
       type: DataTypes.STRING,
       notEmpty: true,
-      validate:{
-        len: [6, 20]
+      validate: {
+        len: [6, 200]
       }
     }
   }, { sequelize })
-  User.associate = function(models) {
-    User.belongsToMany(models.Image, {through : models.ImageUser})
+  User.associate = function (models) {
+    User.belongsToMany(models.Image, { through: models.ImageUser })
   };
   return User;
 };

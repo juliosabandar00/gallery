@@ -1,5 +1,7 @@
 const { User } = require('../models');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+const hash = require('../helpers/bcrypt');
+const check = require('../helpers/checkPass')
 
 class AuthController {
   static goToLogInPage(req, res) {
@@ -12,16 +14,19 @@ class AuthController {
       {
         where: {
           [Op.and]: [
-            { username: req.body.username },
-            { password: req.body.password }
+            { username: req.body.username }
           ]
         }
       })
       .then(data => {
         if (data) {
-          req.session.user = data.username;
-          console.log(req.session.user)
-          res.redirect('/home')
+          if (check(req.body.password, data.password)) {
+            req.session.user = data.username;
+            console.log(req.session.user)
+            res.redirect('/home')
+          } else {
+            res.redirect('/login?err=wrong password')
+          }
         } else {
           res.redirect(`/login/?err=account not found`)
         }
@@ -44,24 +49,35 @@ class AuthController {
   static goToSignUpPage(req, res) {
     res.render('signup');
   }
-  static signUp(req, res) {
-    // console.log('test')
-    let newUser = req.body;
-    // console.log(newUser)
-    User.create(newUser).then(() => {
-      return User.findAll({ where: { username: newUser.username } })
-      // .then((user) => {
-      //   //automatically redirects to libary after sign-up
-      //   res.redirect('/gallery?userid=' + user[0].id)
 
-      // })
+  static signUp(req, res) {
+    User.create({
+      username: req.body.username,
+      password: hash(req.body.password)
     })
-      .then(user => {
+      .then(data => {
         res.redirect('/')
       })
-      .catch((err) => {
-        throw err;
-      });
+      .catch(err => {
+        res.send(err)
+      })
+
+    // console.log('test')
+    // User.create(newUser)
+    //   .then(() => {
+    //     return User.findAll({ where: { username: newUser.username } })
+    //       .then((user) => {
+    //         //automatically redirects to libary after sign-up
+    //         res.redirect('/gallery?userid=' + user[0].id)
+
+    //       })
+    //   })
+    //   .then(user => {
+    //     res.redirect('/')
+    //   })
+    //   .catch((err) => {
+    //     throw err;
+    //   });
   }
 }
 
