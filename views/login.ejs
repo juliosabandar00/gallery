@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <%- include('partials/bootstrap') %>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Log In</h1>
-    <form action="/logIn" method ="post">
-        <%- include('partials/userpass') %>
-        <button type="submit" class="btn btn-primary">Log In</button>
-    </form>   
-    <p1><a href="/signUp">Don't have an account yet?</a></p1>
-</body>
+    <% if(error){ %>
+    <p><%= error %></p>
+    <% } %>
+    <form action="/login" method="post">
+      <%- include('partials/userpass') %>
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+    <p1><a href="/signup">Don't have an account yet?</a></p1>
+  </body>
 </html>

@@ -1,10 +1,21 @@
-var express = require('express');
+const express = require('express');
 const app = express();
 const port = 3600;
-const indexRouter =  require('./routes/index.js')
+const session = require('express-session')
+const indexRouter = require('./routes/index.js')
+const authRouter = require('./routes/authRouter');
+
+let config = {
+    secret: 'rahasia'
+}
+
 app.set('view engine', 'ejs');
+app.use(session(config))
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static("public"));
+
+app.use(authRouter)
 app.use(indexRouter);
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log('Listening on port ', port);
 });

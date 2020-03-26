@@ -2,8 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Sequelize = sequelize.Sequelize;
   const Model = Sequelize.Model;
-  class Image extends Model{
-    updateScore(newScore){
+  class Image extends Model {
+    updateScore(newScore) {
       console.log('aaaaaaa');
       this.score = newScore;
     }
@@ -16,17 +16,17 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     score: DataTypes.INTEGER
-  }, 
-  { 
-    sequelize,
-    hooks: {
-      beforeCreate: (image, option) => {
-        image.score = 0;
+  },
+    {
+      sequelize,
+      hooks: {
+        beforeCreate: (image, option) => {
+          image.score = 0;
+        }
       }
-    }
-  })
-  Image.associate = function(models) {
-    Image.belongsToMany(models.User, {through : models.ImageUser})
+    })
+  Image.associate = function (models) {
+    Image.belongsToMany(models.User, { through: models.ImageUser })
   };
   return Image;
 };
